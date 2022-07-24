@@ -1,26 +1,24 @@
+PURPOSE OF THE PROGRAM:
+
+It is a program which establiches a communication between a server process and client process. Client process creates an array with 1000 elements every 10ms and client sends an array and process_id to the server with message passing. In server process, main_thread takes a message with message passing and creates an worker_thread to sorts the array. Worker_thread takes an array from main_thread. After sorting, the worker thread writes the sorted array to the file as PID.txt with the client process_id and then sends a sorted signal to the client.
+Main_thread assigns a task to the worker_thread, then waits for worker thread to finish its task. Meanwhile main_thread is blocked until worker_thread finish its task.
 
 -----------------------------------------------------------
-1-  server.c
-server.c derlenmesi için:
+
+1- How to compile server.c:
+
 gcc server.c -lpthread -o server.o
------------------------------------------------------------
-2-  client.c
-client.c derlenmesi için:
+
+2- How to compile client.c:
+
 gcc client.c -o client.o
------------------------------------------------------------
-3- Executable dosyaları oluşur ( client.o ve server.o )
-client.o çalıştırmak için:
+
+3- To run the client:
+
 ./client.o  
 
-server.o çalıştırmak için:
+4- To run the server:
+
 ./server.o 
------------------------------------------------------------
-PROGRAMIN AMACI:
 
-server ve clientlar arasında iletişimin kurulduğu bir programdır. client her 10 saniyede bir 1000 elemanlı randomized bir array oluşturmaktadır ve server'a message passing 
-yöntemi ile array'i ve process_id'yi göndermektedir.
-Server'da main thread message passing yöntemi ile mesajı almaktadır ve array'in sortlanması için worker thread oluşturup bu görevi ona vermektedir ve 
-worker thread sortlanmış array'i istemci process_id ile PID.txt olacak şekilde dosyaya yazmaktadır ve sonrasında istemciye sıralandı şeklinde sinyal göndermektedir.
 
-Bu programda main_thread worker_thread'e görev vermektedir ve worker_thread'in görevinin bitmesini beklemektedir. 
-Bu durum için pthread_join kullanılmıştır ve böylece main_thread bloklanmış olmaktadır.
